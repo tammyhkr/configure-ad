@@ -237,8 +237,6 @@ This tutorial outlines the implementation of on-premises Active Directory within
   - Open the command line and type 'whoami' to view user name -> type 'hostname' to view the host you're logged into
   
 
-You have successfully configured Active Directory!
-
 
 ![image](https://github.com/user-attachments/assets/642a1ebf-6109-4967-9d83-4fa9173fb817)
 ![image](https://github.com/user-attachments/assets/cfd71347-6fe1-4680-8ad5-3a273209ad8b)
@@ -247,6 +245,8 @@ You have successfully configured Active Directory!
 ![image](https://github.com/user-attachments/assets/2c38216f-a70e-4ab8-aee3-fa6c343da2c9)
 ![image](https://github.com/user-attachments/assets/3728d79a-8eaa-4195-a67e-ed7b8665668d)
 ![image](https://github.com/user-attachments/assets/1f05aba7-141b-406d-9dcc-2b6494df4789)
+
+You have successfully configured Active Directory!
 
 
 
