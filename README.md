@@ -185,7 +185,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
   - Restart Client-1 VM in Azure
      - Go to Virtual Machines -> Client-1 -> click 'Restart'
   - Log into Client-1 as the original local admin and join it to the domain (computer will restart)
-     - Once logged in, right click the start menu -> go to System -> click 'Rename this PC (advancded) on the right -> click 'Change' -> select 'Domain' -> enter your Domain Name -> click 'Ok' -> enter the admins credentials 'mydomain.com\jane_admin' -> click 'Ok' -> Client-1 VM should restart
+     - Once logged in, right click the start menu -> go to System -> click 'Rename this PC (advancded) on the right -> click 'Change' -> select 'Domain' -> enter your Domain Name -> click 'Ok' -> enter the admins credentials 'mydomain.com\jane_admin' -> click 'Ok' -> Client-1 VM should restart automatically (if not, go to the start menu and click 'Restart' to force it, log back into Client-1 VM w/ the admin credentials)
   - You have now joined Client-1 to the Domain successfully
 
 ![image](https://github.com/user-attachments/assets/ceee869e-671e-413f-a06e-b802fe3db40c)
