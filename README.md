@@ -151,14 +151,17 @@ This tutorial outlines the implementation of on-premises Active Directory within
           - Repeat steps and name another Organizational Unit _ADMINS
    - Right click 'mydomain.com' and click refresh to view the OU's created
    - Create an administrative account
-          - Go to '_ADMINS' and right click -> go to 'New' -> select 'User'
-          - Create your own credentials -> click 'Next' -> create your own password -> uncheck the box that says 'User must change password at next logon' -> click 'Next' and then 'Finish'
-          - After the user is created, right click '_ADMINS' -> go to 'Properties' -> click the 'Member of' tab -> click 'Add' -> enter 'domain' in the emtpy field -> click 'Check Names' -> join the 'Domain Admins' group -> click 'Ok' and apply
-    - Log off of DC-1 VM and log back in using the admin credentials we just created
-          - Go to start and open the 'Command Promt' app -> type 'logoff'
-          - Log back in using admin credentials
-          - Click start and open the 'Command Promt' app -> type 'whoami' and you'll see you're now logged in as jane_admin in DC-1 VM
+       - Go to '_ADMINS' and right click -> go to 'New' -> select 'User'
+       - Create your own credentials -> click 'Next' -> create your own password -> uncheck the box that says 'User must change password at next logon' -> click 'Next' and then 'Finish'
+       -  After the user is created, right click the user's name -> go to 'Properties' -> click the 'Member of' tab -> click 'Add' -> enter 'domain' in the emtpy field -> click 'Check Names' -> join the 'Domain Admins' group -> click 'Ok' and apply
+          
+         
+   - Log off of DC-1 VM and log back in using the admin credentials we just created
+     - Go to start and open the 'Command Promt' app -> type 'logoff'
+     - Log back in using admin credentials
+     - Click start and open the 'Command Promt' app -> type 'whoami' and you'll see you're now logged in as jane_admin in DC-1 VM
 
+         
   
  ![image](https://github.com/user-attachments/assets/7baca008-fd5e-47ce-9213-352f188c855e)
  ![image](https://github.com/user-attachments/assets/f8df5232-5b1a-4c27-995b-01b956b6affd)
@@ -185,7 +188,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
   - Restart Client-1 VM in Azure
      - Go to Virtual Machines -> Client-1 -> click 'Restart'
   - Log into Client-1 as the original local admin and join it to the domain (computer will restart)
-     - Once logged in, right click the start menu -> go to System -> click 'Rename this PC (advancded) on the right -> click 'Change' -> select 'Domain' -> enter your Domain Name -> click 'Ok' -> enter the admins credentials 'mydomain.com\jane_admin' -> click 'Ok' -> Client-1 VM should restart automatically (if not, go to the start menu and click 'Restart' to force it, log back into Client-1 VM w/ the admin credentials)
+     - Once logged in, right click the start menu -> go to System -> click 'Rename this PC (advancded) on the right -> click 'Change' -> select 'Domain' -> enter your Domain Name -> click 'Ok' -> enter the admins credentials 'mydomain.com\jane_admin' -> click 'Ok' -> a window will pop up asking to restart the computer, click 'Restart now' (if not, go to the start menu and click 'Restart' to force it, log back into Client-1 VM w/ the admin credentials)
   - You have now joined Client-1 to the Domain successfully
 
 ![image](https://github.com/user-attachments/assets/ceee869e-671e-413f-a06e-b802fe3db40c)
@@ -200,12 +203,77 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 
 
+6. Setup Remote Desktop for non-administrative users on Cleint-1
+
+  - Log into CLient-1 as 'mydomain.com\jane_admin' -> right click the start menu -> click 'System' -> select 'Remote Desktop' on the right -> scroll down and click 'Select users that can remotely access this PC' -> click 'Add' -> enter 'domain user' in the empty box field -> click 'Check Names' -> click 'Ok'
+  - Minimize Client-1
+  - Open up DC-1 VM -> open up Active Directory -> go to 'mydomain.com' -> click the drop down -> click 'Users' -> you should see 'Domain Users' added -> double click 'Domain User's -> select the 'Members' tab to view the users of this security group that are allowed to remotely log into Client-1
 
 
 
+![image](https://github.com/user-attachments/assets/664d7adb-f374-4cad-8793-244d97f82f36)
+![image](https://github.com/user-attachments/assets/e8b8614b-c509-4487-bb36-494896615545)
+![image](https://github.com/user-attachments/assets/e72de4d4-0bd5-40e5-a896-98a6504ecaf5)
+![image](https://github.com/user-attachments/assets/a59f7f3a-89cb-4af3-8d73-16ff9719fc41)
+![image](https://github.com/user-attachments/assets/5ef1ea1f-88f3-4b32-9e03-40794454416f)
 
 
 
+7. Create a bunch of additional users and attempt to log into Client-1 with on of the users
+
+  - Open up DC-1 and log in as 'mydomain.com\jane_admin'
+  - Click the start menu and open 'Windows Powershell ISE' (right click to 'Run as administrator') -. click 'Yes' for the pop up
+  - Click on the blank paper icon to create a new file
+  - Paste your script under the 'Untitled' tab
+  - Run the script by click the green play icon at the top
+  - You'll start to see random user names being created
+  - Minimize Powershell
+  - Go back into Active Directory -> click on 'mydomain.com' -> click '_EMPLOYEES' -> you should see all the users that) are being created from PowerShell ISE in this folder (if you do not see them, right click '_EMPLOYEES' and click 'Refresh')
+  - Double click on a random user name from the '_EMPLOYEES' folder (pick an easy username)
+  - Copy the 'Display name' aka the 'Account Name'
+  - Minimize DC-1
+  - Log out of Client-1 and log back in with the users credentials we copied (in this case: 'mydomain.com\ban.jot)
+      *Note: The password for all these users is 'Password1' per the script we pasted into PowerShell ISE
+  - Open the command line and type 'whoami' to view user name -> type 'hostname' to view the host you're logged into
+  
+
+You have successfully configured Active Directory!
+
+
+![image](https://github.com/user-attachments/assets/642a1ebf-6109-4967-9d83-4fa9173fb817)
+![image](https://github.com/user-attachments/assets/cfd71347-6fe1-4680-8ad5-3a273209ad8b)
+![image](https://github.com/user-attachments/assets/3c0ff4c7-51a0-4038-8e7e-ac44941ec74e)
+![image](https://github.com/user-attachments/assets/37b5457e-f5e2-4f4d-aafb-02c55651ad11)
+![image](https://github.com/user-attachments/assets/2c38216f-a70e-4ab8-aee3-fa6c343da2c9)
+![image](https://github.com/user-attachments/assets/3728d79a-8eaa-4195-a67e-ed7b8665668d)
+![image](https://github.com/user-attachments/assets/1f05aba7-141b-406d-9dcc-2b6494df4789)
+
+
+
+*Trouble Shooting task for when a user gets locked out of their account after too many log in attempts
+
+ - Go to DC-1
+ - Pick another random user from Active Directory (pick an easy one)
+ - Copy the 'Display name'
+ - Log into Client-1 with that user name (in this case: mydomain.com\bej.hid)
+ - Purposley attempt to log in at least 10 times with the wrong password
+ - Go back into DC-1
+ - Right click the user we attempted to log into 10 times
+ - Go to 'Properties'
+ - Click on the 'Accounts' tab
+ - Click the check box next to 'Unlock account'
+ - Click 'Ok'
+ - If the user were to forget their password, right click the user's name -> select 'Reset Password'
+
+
+
+![image](https://github.com/user-attachments/assets/d3a01dc8-2ac8-4b1b-942d-350f1da0c3c6)
+![image](https://github.com/user-attachments/assets/a28a5a6f-dc29-42c2-bf89-cb215c5f57e5)
+![image](https://github.com/user-attachments/assets/ed61b4b5-7580-4d64-8856-470e31db6778)
+![image](https://github.com/user-attachments/assets/faa0ace0-1d4a-44c8-ba45-ad361552fabc)
+
+
+Congrats, you've successfully resolved the users issue! That concludes this project.
 
 
 
